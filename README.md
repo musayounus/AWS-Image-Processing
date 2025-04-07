@@ -28,29 +28,39 @@ An automated pipeline that analyzes images using AI (Amazon Rekognition), stores
 - [Postman](https://www.postman.com/) (for API testing)
 
 ### 1. Infrastructure Setup
+```
 chmod +x infrastructure/setup.sh
 ./infrastructure/setup.sh
+```
 
 ### 2. Deploy Lambda Functions
 ### Image processing Lambda
+```
 cd lambdas/image-processing
 zip -r function.zip .
 aws lambda update-function-code --function-name ImageProcessing --zip-file fileb://function.zip
+```
 
 ### API handler Lambda
+```
 cd ../api-handler
 zip -r function.zip .
 aws lambda update-function-code --function-name GetImageAnalysis --zip-file fileb://function.zip
+```
 
 ## 🖥️ Usage
 ### Upload an Image
+```
 aws s3 cp test.jpg s3://your-bucket-name/ --acl private
+```
 
 ### Query Results via API
+```
 curl https://your-api-id.execute-api.region.amazonaws.com/prod/images
+```
 
 ### Sample Response:
-{
+```{
   "ImageId": "test.jpg",
   "Bucket": "your-bucket-name",
   "AnalysisDate": "2025-04-07T12:00:00Z",
@@ -67,8 +77,10 @@ curl https://your-api-id.execute-api.region.amazonaws.com/prod/images
     }
   ]
 }
+```
 
 ## 📂 Project Structure
+<pre>
 aws-image-processing/
 ├── infrastructure/       # AWS setup scripts
 ├── lambdas/              # Lambda function code
@@ -77,6 +89,7 @@ aws-image-processing/
 ├── postman/              # API test collection
 ├── docs/                 # Diagrams & documentation
 └── README.md             # You are here!
+</pre>
 
 ## 🛡️ Security
 ### IAM Roles: Least-privilege permissions for all services
