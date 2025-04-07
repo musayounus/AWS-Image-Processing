@@ -1,5 +1,7 @@
 ﻿# 🖼️ AWS Serverless Image Processing Pipeline
 
+[![AWS Serverless](https://img.shields.io/badge/AWS-Serverless-orange?logo=amazon-aws)](https://github.com/musayounus/aws-image-processing)
+
 An automated pipeline that analyzes images using AI (Amazon Rekognition), stores results in DynamoDB, and provides a REST API for querying.
 
 ![Architecture Diagram](./docs/architecture.png)
