@@ -26,29 +26,29 @@ An automated pipeline that analyzes images using AI (Amazon Rekognition), stores
 - Node.js 20.x
 - [Postman](https://www.postman.com/) (for API testing)
 
-## 1. Infrastructure Setup
+### 1. Infrastructure Setup
 chmod +x infrastructure/setup.sh
 ./infrastructure/setup.sh
 
-## 2. Deploy Lambda Functions
-# Image processing Lambda
+### 2. Deploy Lambda Functions
+### Image processing Lambda
 cd lambdas/image-processing
 zip -r function.zip .
 aws lambda update-function-code --function-name ImageProcessing --zip-file fileb://function.zip
 
-# API handler Lambda
+### API handler Lambda
 cd ../api-handler
 zip -r function.zip .
 aws lambda update-function-code --function-name GetImageAnalysis --zip-file fileb://function.zip
 
 ## 🖥️ Usage
-# Upload an Image
+### Upload an Image
 aws s3 cp test.jpg s3://your-bucket-name/ --acl private
 
-# Query Results via API
+### Query Results via API
 curl https://your-api-id.execute-api.region.amazonaws.com/prod/images
 
-# Sample Response:
+### Sample Response:
 {
   "ImageId": "test.jpg",
   "Labels": [
