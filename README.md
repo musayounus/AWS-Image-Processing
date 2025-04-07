@@ -70,42 +70,36 @@ curl https://your-api-id.execute-api.region.amazonaws.com/prod/images
 
 ## 📂 Project Structure
 aws-image-processing/
-│
-├── infrastructure/
-│   ├── setup.sh           # AWS resource creation
-│   └── teardown.sh        # Cleanup script
-│
-├── lambdas/
-│   ├── image-processing/  # S3 trigger handler
-│   │   ├── index.js       # Rekognition integration
-│   │   └── package.json
-│   │
-│   └── api-handler/       # Data retrieval
-│       ├── index.js       # DynamoDB queries
-│       └── package.json
-│
-├── postman/
-│   └── collection.json    # API test cases
-│
-├── docs/
-│   ├── architecture.png   # System diagram
-│   └── workflow.md       # Processing logic
-│
-└── README.md             # Project documentation
+├── infrastructure/       # AWS setup scripts
+├── lambdas/              # Lambda function code
+│   ├── image-processing/ # S3 → Rekognition → DynamoDB
+│   └── api-handler/      # API Gateway → DynamoDB
+├── postman/              # API test collection
+├── docs/                 # Diagrams & documentation
+└── README.md             # You are here!
 
 ## 🛡️ Security
-IAM Roles: Least-privilege permissions
+### IAM Roles: Least-privilege permissions for all services
 
-S3 Encryption: Server-side encryption (SSE-S3)
+### Data Protection:
+S3 server-side encryption (SSE-S3)
+DynamoDB encryption at rest
 
-API Gateway: AWS_IAM authorization recommended
+### Access Control:
+API Gateway with IAM authorization
 
 ## 📈 Monitoring
-All services are integrated with:
+### CloudWatch:
+Lambda execution logs
+API Gateway metrics
 
-Amazon CloudWatch (Logs/Metrics)
+### X-Ray:
+End-to-end request tracing
+Service map visualization
 
-AWS X-Ray (Request tracing)
+### Alarms:
+Error rate monitoring
+Latency thresholds
 
 ## 🤝 Contributing
 Fork the project
