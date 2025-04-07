@@ -5,10 +5,11 @@ An automated pipeline that analyzes images using AI (Amazon Rekognition), stores
 ![Architecture Diagram](./docs/architecture.png)
 
 ## 🔍 Features
-- **Automated Image Analysis**: Detects objects/labels in uploaded images
+- **Automated Image Analysis**: Amazon Rekognition detects objects/labels in uploaded images
 - **Serverless**: 100% AWS serverless components (Lambda, API Gateway, S3)
 - **Scalable**: DynamoDB handles high-throughput requests
 - **Secure**: IAM roles with least-privilege permissions
+- **Monitoring Ready**: Integrated with CloudWatch and X-Ray
 
 ## 🛠️ Technologies
 | Service          | Use Case                          |
@@ -51,21 +52,46 @@ curl https://your-api-id.execute-api.region.amazonaws.com/prod/images
 ### Sample Response:
 {
   "ImageId": "test.jpg",
+  "Bucket": "your-bucket-name",
+  "AnalysisDate": "2025-04-07T12:00:00Z",
   "Labels": [
-    {"Name": "Dog", "Confidence": 98.76},
-    {"Name": "Animal", "Confidence": 95.32}
+    {
+      "Name": "Dog",
+      "Confidence": 98.76,
+      "Instances": [],
+      "Parents": [{"Name": "Animal"}]
+    },
+    {
+      "Name": "Outdoor",
+      "Confidence": 92.31
+    }
   ]
 }
 
 ## 📂 Project Structure
 aws-image-processing/
-├── infrastructure/       # AWS setup scripts
-├── lambdas/              # Lambda function code
-│   ├── image-processing/ # S3 → Rekognition → DynamoDB
-│   └── api-handler/      # API Gateway → DynamoDB
-├── postman/              # API test collection
-├── docs/                 # Diagrams & documentation
-└── README.md             # You are here!
+│
+├── infrastructure/
+│   ├── setup.sh           # AWS resource creation
+│   └── teardown.sh        # Cleanup script
+│
+├── lambdas/
+│   ├── image-processing/  # S3 trigger handler
+│   │   ├── index.js       # Rekognition integration
+│   │   └── package.json
+│   │
+│   └── api-handler/       # Data retrieval
+│       ├── index.js       # DynamoDB queries
+│       └── package.json
+│
+├── postman/
+│   └── collection.json    # API test cases
+│
+├── docs/
+│   ├── architecture.png   # System diagram
+│   └── workflow.md       # Processing logic
+│
+└── README.md             # Project documentation
 
 ## 🛡️ Security
 IAM Roles: Least-privilege permissions
